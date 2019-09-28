@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApiIjobs
+namespace WebApiIjobs.Models
+
 {
     public partial class Rappel
     {

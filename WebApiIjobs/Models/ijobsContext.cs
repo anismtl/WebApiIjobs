@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace WebApiIjobs
+namespace WebApiIjobs.Models
 {
     public partial class ijobsContext : DbContext
     {
@@ -22,14 +22,14 @@ namespace WebApiIjobs
         public virtual DbSet<Offre> Offre { get; set; }
         public virtual DbSet<Rappel> Rappel { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
 
-                optionsBuilder.UseSqlServer("Data Source=aniss.ca;Database=ijobs;User ID=yuni;Password=yuni2019");
-            }
-        }
+        //    //    optionsBuilder.UseSqlServer("Data Source=aniss.ca;Database=ijobs;User ID=yuni;Password=yuni2019");
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
