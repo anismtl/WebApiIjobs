@@ -43,7 +43,7 @@ namespace WebApiIjobs.Controllers
 
         // PUT: api/Candidats/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCandidat(int id, Candidat candidat)
+        public async Task<IActionResult> UpdateCandidat(int id, Candidat candidat)
         {
             if (id != candidat.IdCandidat)
             {
@@ -73,7 +73,7 @@ namespace WebApiIjobs.Controllers
 
         // POST: api/Candidats
         [HttpPost]
-        public async Task<ActionResult<Candidat>> PostCandidat(Candidat candidat)
+        public async Task<ActionResult<Candidat>> CreateCandidat(Candidat candidat)
         {
             _context.Candidat.Add(candidat);
             await _context.SaveChangesAsync();
@@ -102,20 +102,20 @@ namespace WebApiIjobs.Controllers
 
 
         // DELETE: api/Candidats/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Candidat>> DeleteCandidat(int id)
-        {
-            var candidat = await _context.Candidat.FindAsync(id);
-            if (candidat == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<Candidat>> DeleteCandidat(int id)
+        //{
+        //    var candidat = await _context.Candidat.FindAsync(id);
+        //    if (candidat == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Candidat.Remove(candidat);
-            await _context.SaveChangesAsync();
+        //    _context.Candidat.Remove(candidat);
+        //    await _context.SaveChangesAsync();
 
-            return candidat;
-        }
+        //    return candidat;
+        //}
 
         private bool CandidatExists(int id)
         {
