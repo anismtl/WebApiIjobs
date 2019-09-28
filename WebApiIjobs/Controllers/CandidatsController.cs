@@ -81,6 +81,26 @@ namespace WebApiIjobs.Controllers
             return CreatedAtAction("GetCandidat", new { id = candidat.IdCandidat }, candidat);
         }
 
+
+
+        // PUT: api/Candidats/disable/5
+        [HttpPut("disable/{id}")]
+        public async Task<ActionResult<Boolean>> DisableCandidat(int id)
+        {
+            var candidat = await _context.Candidat.FindAsync(id);
+            if (candidat == null)
+            {
+                return NotFound();
+            }
+            candidat.Statut = "disactive";
+            
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
+
+
         // DELETE: api/Candidats/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Candidat>> DeleteCandidat(int id)
