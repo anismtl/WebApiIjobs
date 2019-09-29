@@ -22,7 +22,7 @@ namespace WebApiIjobs.Controllers
 
         // GET: api/Contacts/{idCandidat}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
+        public async Task<ActionResult<IEnumerable<Contact>>> GetContacts()
         {
             return await _context.Contact.ToListAsync();
         }
