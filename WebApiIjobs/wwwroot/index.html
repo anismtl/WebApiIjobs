@@ -7,42 +7,56 @@
 <body>
     <h1>IJobs Web Api</h1>
     <hr />
+
+    <br /><br />
     <b>Candidat:</b>
     <br />
-    1- <a href="/api/candidats/" target="_blank"> GetCandidat()</a> GET: /candidats/
-    <br />
-    2- <a href="/api/candidats/1" target="_blank"> GetCandidat(int id)</a> GET: /candidats/{id}
-    <br />
-    3- <a href="/api/candidats/" target="_blank">  PostCandidat(Candidat candidat)</a> POST: /candidats/
-    <br />
-    4- <a href="/api/candidats/" target="_blank">  UpdateCandidat(int id, Candidat candidat)</a> PUT: /candidats/
-    <br />
-    5- <a href="/api/candidats/disable/1" target="_blank">  DisableCandidat(int id)</a> PUT: /candidats/disable/{id}
-    <br />
-    6- <a href="/api/candidats/authentifier/1" target="_blank"> AuthentifierCandidat</a>
+    1- <a href="/api/candidats/" target="_blank">GetCandidat()</a> GET: /candidats/<br />
+    2- <a href="/api/candidats/1" target="_blank">GetCandidat(int id)</a> GET: /candidats/{id}    <br />
+    3- <a href="/api/candidats/" target="_blank">PostCandidat(Candidat candidat)</a> POST: /candidats/    <br />
+    4- <a href="/api/candidats/" target="_blank">UpdateCandidat(int id, Candidat candidat)</a> PUT: /candidats/    <br />
+    5- <a href="/api/candidats/disable/1" target="_blank">DisableCandidat(int id)</a> PUT: /candidats/disable/{id}    <br />
+    6- <a href="/api/candidats/authentifier/1" target="_blank">AuthentifierCandidat()</a>
+
     <br /><br />
-
-
     <b>Offre:</b>
     <br />
-    1- <a href="/api/offres/" target="_blank">GetAll</a> <br />
-    <br />
+    1- <a href="/api/offres/" target="_blank">GetOffre()</a> GET: api/offres/<br />
+    2- <a href="/api/offres/1" target="_blank">GetOffre(string id)</a> GET: api/Offres/{id}<br />
+    3- <a href="/api/offres/" target="_blank">PostOffre(Offre offre)</a> POST: api/Offres/<br />
+
+    <br /><br />
     <b>Favoris:</b>
     <br />
-    1- <a href="/api/favoris/" target="_blank">GetAll</a>
+    1- <a href="/api/favoris/" target="_blank">GetFavoris()</a> GET: api/Favoris/<br />
+    2- <a href="/api/favoris/1/1272242463" target="_blank">GetFavoris(int idCandidat, string idOffre)</a> GET: api/Favoris/{idCandidat}/{idOffre}<br />
+    3- <a href="/api/favoris/postuler/1/1272242463" target="_blank">PostulerFavoris(int idCandidat, string idOffre)</a> PUT: api/Favoris/postuler/{idCandidat}/{idOffre}<br />
+    4- <a href="/api/favoris/" target="_blank">PostFavoris(Favoris favoris)</a> POST: /api/favoris<br />
+    5- <a href="/api/Favoris/1/1272242463" target="_blank">DeleteFavoris(int idCandidat, string idOffre)</a> DELETE: /api/Favoris/{idCandidat}/{idOffre}<br />
 
     <br /><br />
     <b>Evenement:</b>
     <br />
-    1-<a href="/api/evenements/" target="_blank"> GetAll</a>
+    1-<a href="/api/evenements/" target="_blank">GetEvenement()</a> GET: api/evenements/<br />
+    2- <a href="/api/evenements/1" target="_blank">GetEvenement(int id)</a> GET: api/evenements/{id}<br />
+    3- <a href="/api/Evenements/Candidat/1" target="_blank">GetEvenementByCandidat(int idCandidat)</a> GET: api/Evenements/Candidat/{idCandidat}<br />
+    4- <a href="/api/evenements/CandidatOffre/1/1272242463" target="_blank">GetEvenementByCandidatOffre(int idCandidat, string idOffre)</a> GET: /api/evenements/CandidatOffre/{idCandidat}/{idOffre}<br />
+    5- <a href="/api/evenements/1" target="_blank">PutEvenement(int id, Evenement evenement)</a> PUT: /api/evenements/{idEvenement}<br />
+    6- <a href="/api/evenements/" target="_blank">PostEvenement(Evenement evenement)</a> POST: /api/evenements/<br />
+    7- <a href="/api/evenements/1" target="_blank">DeleteEvenement(int id)</a> DELETE: /api/evenements/{idEvenement}<br />
 
     <br /><br />
     <b>Rappel:</b>
     <br />
-    1-<a href="/api/rappels/" target="_blank"> GetAll</a>
+    1-<a href="/api/rappels/" target="_blank">GetRappel()</a> GET: api/rappels/<br />
+    2-<a href="/api/rappels/1" target="_blank">GetRappel(int id)</a> GET: api/rappels/{idRappel}<br />
+    3-<a href="/api/rappels/Evenement/1" target="_blank">GetRappelByEvenement(int idEvenement)</a> GET: api/rappels/Evenement/{idEvenement}<br />
+    4-<a href="/api/rappels/Candidat/1" target="_blank">GetRappelByCandidat(int idEvenement)</a> GET: api/rappels/Evenement/{idCandidat}<br />
+    5-<a href="/api/rappels/1" target="_blank">PutRappel(int id, Rappel rappel)</a> PUT: api/rappels/{idRappel}<br />
+    6-<a href="/api/rappels/" target="_blank">PostRappel(Rappel rappel)</a> POST: api/rappels/<br />
+    7-<a href="/api/rappels/1" target="_blank"> DeleteRappel(int id)</a> DELETE: api/rappels/{idRappel}<br />
 
     <br /><br />
-
     <b>Contact:</b>
     <br />
     1-<a href="/api/contacts/" target="_blank"> GetContacts</a><br />
@@ -52,18 +66,12 @@
     5- <a href="/api/contacts/" target="_blank"> AjouterContact(Contact contact)</a> POST:<br />
     6- <a href="/api/contacts/" target="_blank"> DeleteContact(int id)</a> DELETE: /{id}<br />
 
-
-
-
     <br /><br />
+    <b>Message:</b>
+    <br />
+    1-<a href="" target="_blank">PAS IMPLENTÉ GetMessagesByDateHrPeriode(DateTime dateRappel, string hrRappel, int periode)</a> GET: /message/{dateRappel}/{hrRappel}/{periode}<br />
 
-
-
-
-
-    <p>
-        <br />
-    </p>
+    <p><br /></p>
     ©2019
     <hr />
 </body>
