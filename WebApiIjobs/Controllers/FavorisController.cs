@@ -27,11 +27,11 @@ namespace WebApiIjobs.Controllers
             return await _context.Favoris.ToListAsync();
         }
 
-        // GET: api/Favoris/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Favoris>> GetFavoris(int id)
+        // GET: api/Favoris/1/1272242463
+        [HttpGet("{idCandidat}/{idOffre}")]
+        public async Task<ActionResult<Favoris>> GetFavoris(int idCandidat, string idOffre)
         {
-            var favoris = await _context.Favoris.FindAsync(id);
+            var favoris = await _context.Favoris.FindAsync(idCandidat, idOffre);
 
             if (favoris == null)
             {
@@ -41,34 +41,20 @@ namespace WebApiIjobs.Controllers
             return favoris;
         }
 
-        // PUT: api/Favoris/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFavoris(int id, Favoris favoris)
+        // PUT: api/Favoris/postuler/1/1272242463
+        [HttpPut("postuler/{idCandidat}/{idOffre}")]
+        public async Task<ActionResult<Boolean>> PostulerFavoris(int idCandidat, string idOffre)
         {
-            if (id != favoris.IdCandidat)
+            var favoris = await _context.Favoris.FindAsync(idCandidat, idOffre);
+            if (favoris == null)
             {
-                return BadRequest();
+                return NotFound();
             }
+            favoris.Postule = 1;
+            
+            await _context.SaveChangesAsync();
 
-            _context.Entry(favoris).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FavorisExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return true;
         }
 
         // POST: api/Favoris
@@ -82,7 +68,7 @@ namespace WebApiIjobs.Controllers
             }
             catch (DbUpdateException)
             {
-                if (FavorisExists(favoris.IdCandidat))
+                if (FavorisExists(favoris.IdCandidat, favoris.IdOffre))
                 {
                     return Conflict();
                 }
@@ -95,11 +81,11 @@ namespace WebApiIjobs.Controllers
             return CreatedAtAction("GetFavoris", new { id = favoris.IdCandidat }, favoris);
         }
 
-        // DELETE: api/Favoris/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Favoris>> DeleteFavoris(int id)
+        // DELETE: api/Favoris/1/1272242463
+        [HttpDelete("{idCandidat}/{idOffre}")]
+        public async Task<ActionResult<Favoris>> DeleteFavoris(int idCandidat, string idOffre)
         {
-            var favoris = await _context.Favoris.FindAsync(id);
+            var favoris = await _context.Favoris.FindAsync(idCandidat, idOffre);
             if (favoris == null)
             {
                 return NotFound();
@@ -111,9 +97,9 @@ namespace WebApiIjobs.Controllers
             return favoris;
         }
 
-        private bool FavorisExists(int id)
+        private bool FavorisExists(int idCandidat, string idOffre)
         {
-            return _context.Favoris.Any(e => e.IdCandidat == id);
+            return _context.Favoris.Any(e => ((e.IdCandidat == idCandidat)&&(e.IdOffre.Equals(idOffre))));
         }
     }
 }
