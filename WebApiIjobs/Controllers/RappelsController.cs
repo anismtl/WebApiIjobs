@@ -41,7 +41,59 @@ namespace WebApiIjobs.Controllers
             return rappel;
         }
 
-        // PUT: api/Rappels/5
+        // GET: api/Rappels/Evenement/1
+        [HttpGet("Evenement/{idEvenement}")]
+        public async Task<ActionResult<Rappel>> GetRappelByEvenement(int idEvenement)
+        {
+            var rappel = await (from r in _context.Rappel
+                                join e in _context.Evenement on r.IdEvenement equals e.IdEvenement into r_e
+                                where r.IdEvenement == idEvenement
+                                select new Rappel()
+                                {
+                                    IdRappel = r.IdRappel,
+                                    IdEvenement = r.IdEvenement,
+                                    DateRappel = r.DateRappel,
+                                    TelRappel = r.TelRappel,
+                                    CourrielRappel = r.CourrielRappel
+                                })
+                                .ToListAsync();
+
+            if (rappel == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(rappel);
+        }
+
+        // GET: api/Rappels/Candidat/1
+        [HttpGet("Candidat/{idCandidat}")]
+        public async Task<ActionResult<Rappel>> GetRappelByCandidat(int idCandidat)
+        {
+            var rappel = await (from r in _context.Rappel
+                                join e in _context.Evenement on r.IdEvenement equals e.IdEvenement into r_e
+                                from re in r_e.DefaultIfEmpty()
+                                join c in _context.Candidat  on re.IdCandidat equals c.IdCandidat
+                                where c.IdCandidat == idCandidat
+                                select new Rappel()
+                                {
+                                    IdRappel = r.IdRappel,
+                                    IdEvenement = r.IdEvenement,
+                                    DateRappel = r.DateRappel,
+                                    TelRappel = r.TelRappel,
+                                    CourrielRappel = r.CourrielRappel
+                                })
+                                .ToListAsync();
+
+            if (rappel == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(rappel);
+        }
+
+        // PUT: api/Rappels/1
         [HttpPut("{id}")]
         public async Task<IActionResult> PutRappel(int id, Rappel rappel)
         {
