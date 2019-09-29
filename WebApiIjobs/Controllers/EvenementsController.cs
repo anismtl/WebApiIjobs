@@ -41,6 +41,62 @@ namespace WebApiIjobs.Controllers
             return evenement;
         }
 
+        // GET: api/Evenements/Candidat/1
+        [HttpGet("Candidat/{idCandidat}")]
+        public async Task<ActionResult<Evenement>> GetEvenementByCandidat(int idCandidat)
+        {
+            var evenement = await (from e in _context.Evenement
+                                join c in _context.Candidat on e.IdCandidat equals c.IdCandidat into e_c
+                                where e.IdCandidat == idCandidat
+                                select new Evenement()
+                                {
+                                    IdEvenement = e.IdEvenement,
+                                    IdCandidat = e.IdCandidat,
+                                    IdOffre = e.IdOffre,
+                                    IdContact = e.IdContact,
+                                    Titre = e.Titre,
+                                    DateEvent = e.DateEvent,
+                                    Heure = e.Heure,
+                                    Adresse = e.Adresse,
+                                    Descr = e.Descr
+                                })
+                                .ToListAsync();
+
+            if (evenement == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(evenement);
+        }
+
+        [HttpGet("CandidatOffre/{idCandidat}/{idOffre}")]
+        public async Task<ActionResult<Evenement>> GetEvenementByCandidatOffre(int idCandidat, string idOffre)
+        {
+            var evenement = await (from e in _context.Evenement
+                                   where ((e.IdCandidat == idCandidat)&&(e.IdOffre == idOffre))
+                                   select new Evenement()
+                                   {
+                                       IdEvenement = e.IdEvenement,
+                                       IdCandidat = e.IdCandidat,
+                                       IdOffre = e.IdOffre,
+                                       IdContact = e.IdContact,
+                                       Titre = e.Titre,
+                                       DateEvent = e.DateEvent,
+                                       Heure = e.Heure,
+                                       Adresse = e.Adresse,
+                                       Descr = e.Descr
+                                   })
+                                .ToListAsync();
+
+            if (evenement == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(evenement);
+        }
+
         // PUT: api/Evenements/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvenement(int id, Evenement evenement)
