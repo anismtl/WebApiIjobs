@@ -20,16 +20,45 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
-        // GET: api/Contacts
+        // GET: api/Contacts/{idCandidat}
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
         {
             return await _context.Contact.ToListAsync();
         }
 
+        //ça marche la methode Ok teste déjà
+        // GET: api/Contacts/Candidat/1
+        [HttpGet("candidat/{idCandidat}")]
+        public async Task<ActionResult<Contact>> GetContactsByCandidat(int idCandidat)
+        { 
+            var contact = await (from c in _context.Contact
+                                 where c.IdCandidat == idCandidat
+                                 select new Contact()
+                                 {
+                                     IdContact = c.IdContact,
+                                     IdCandidat = c.IdCandidat,
+                                     NomContact = c.NomContact,
+                                     PrenomContact = c.PrenomContact,
+                                     CourrielContact = c.CourrielContact,
+                                     Poste = c.Poste,
+                                     TelContact = c.TelContact
+                                 })
+                                .ToListAsync();
+            if (contact == null)
+            {
+                return NotFound();
+            }
+            
+            return new ObjectResult(contact);
+        }
+
+
+
+        //ça marche la methode Ok teste déjà
         // GET: api/Contacts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Contact>> GetContact(int id)
+        public async Task<ActionResult<Contact>> GetContactById(int id)
         {
             var contact = await _context.Contact.FindAsync(id);
 
@@ -41,9 +70,10 @@ namespace WebApiIjobs.Controllers
             return contact;
         }
 
+        //ça marche la methode Ok teste déjà
         // PUT: api/Contacts/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutContact(int id, Contact contact)
+        public async Task<IActionResult> UpdateContact(int id, Contact contact)
         {
             if (id != contact.IdContact)
             {
@@ -71,9 +101,10 @@ namespace WebApiIjobs.Controllers
             return NoContent();
         }
 
+        //ça marche la methode Ok teste déjà
         // POST: api/Contacts
         [HttpPost]
-        public async Task<ActionResult<Contact>> PostContact(Contact contact)
+        public async Task<ActionResult<Contact>> AjouterContact(Contact contact)
         {
             _context.Contact.Add(contact);
             await _context.SaveChangesAsync();
@@ -81,6 +112,7 @@ namespace WebApiIjobs.Controllers
             return CreatedAtAction("GetContact", new { id = contact.IdContact }, contact);
         }
 
+        //ça marche la methode Ok teste déjà
         // DELETE: api/Contacts/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Contact>> DeleteContact(int id)

@@ -27,6 +27,7 @@ namespace WebApiIjobs.Controllers
             return await _context.Candidat.ToListAsync();
         }
 
+   
         // GET: api/Candidats/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Candidat>> GetCandidat(int id)
