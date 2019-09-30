@@ -20,6 +20,8 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
+
+        //Teste ok
         // GET: api/Rappels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rappel>>> GetRappel()
@@ -27,6 +29,8 @@ namespace WebApiIjobs.Controllers
             return await _context.Rappel.ToListAsync();
         }
 
+
+        //Teste ok
         // GET: api/Rappels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Rappel>> GetRappel(int id)
@@ -41,6 +45,9 @@ namespace WebApiIjobs.Controllers
             return rappel;
         }
 
+
+        //Teste ok 
+        // Avec join ou san join faite on a le meme resultat
         // GET: api/Rappels/Evenement/1
         [HttpGet("Evenement/{idEvenement}")]
         public async Task<ActionResult<Rappel>> GetRappelByEvenement(int idEvenement)
@@ -66,6 +73,8 @@ namespace WebApiIjobs.Controllers
             return new ObjectResult(rappel);
         }
 
+        //Test ok
+        //Il ne affiche pas l'heure pour le rest c bonne
         // GET: api/Rappels/Candidat/1
         [HttpGet("Candidat/{idCandidat}")]
         public async Task<ActionResult<Rappel>> GetRappelByCandidat(int idCandidat)

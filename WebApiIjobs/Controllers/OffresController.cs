@@ -20,6 +20,7 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
+        //Teste ok
         // GET: api/Offres
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Offre>>> GetOffre()
@@ -27,6 +28,8 @@ namespace WebApiIjobs.Controllers
             return await _context.Offre.ToListAsync();
         }
 
+
+        //Teste ok
         // GET: api/Offres/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Offre>> GetOffre(string id)
@@ -72,6 +75,7 @@ namespace WebApiIjobs.Controllers
         //}
 
         // POST: api/Offres
+
         [HttpPost]
         public async Task<ActionResult<Offre>> PostOffre(Offre offre)
         {

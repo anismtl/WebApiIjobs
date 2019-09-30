@@ -20,6 +20,7 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
+        //Test ok
         // GET: api/Candidats
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Candidat>>> GetCandidat()
@@ -27,7 +28,7 @@ namespace WebApiIjobs.Controllers
             return await _context.Candidat.ToListAsync();
         }
 
-   
+        //Test ok
         // GET: api/Candidats/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Candidat>> GetCandidat(int id)
@@ -42,6 +43,8 @@ namespace WebApiIjobs.Controllers
             return candidat;
         }
 
+
+        //Test ok
         // PUT: api/Candidats/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCandidat(int id, Candidat candidat)
@@ -72,6 +75,7 @@ namespace WebApiIjobs.Controllers
             return NoContent();
         }
 
+        //Teste ok
         // POST: api/Candidats
         [HttpPost]
         public async Task<ActionResult<Candidat>> CreateCandidat(Candidat candidat)
@@ -83,7 +87,7 @@ namespace WebApiIjobs.Controllers
         }
 
 
-
+        //Teste ok
         // PUT: api/Candidats/disable/5
         [HttpPut("disable/{id}")]
         public async Task<ActionResult<Boolean>> DisableCandidat(int id)

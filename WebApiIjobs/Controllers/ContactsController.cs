@@ -27,6 +27,8 @@ namespace WebApiIjobs.Controllers
             return await _context.Contact.ToListAsync();
         }
 
+
+
         //ça marche la methode Ok teste déjà
         // GET: api/Contacts/Candidat/1
         [HttpGet("candidat/{idCandidat}")]
