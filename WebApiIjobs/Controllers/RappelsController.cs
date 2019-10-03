@@ -143,19 +143,22 @@ namespace WebApiIjobs.Controllers
         }
 
         // DELETE: api/Rappels/5
+        // La methode verifie dabords si le id rappels exise , si cest le cas  delete send true sinon send false
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Rappel>> DeleteRappel(int id)
+        public async Task<ActionResult<Boolean>> DeleteRappel(int id)
         {
-            var rappel = await _context.Rappel.FindAsync(id);
-            if (rappel == null)
+            if (RappelExists(id))
+            {
+                var rappel = await _context.Rappel.FindAsync(id);
+                _context.Rappel.Remove(rappel);
+                await _context.SaveChangesAsync();
+                return true;
+            } else
             {
                 return NotFound();
             }
-
-            _context.Rappel.Remove(rappel);
-            await _context.SaveChangesAsync();
-
-            return rappel;
+                      
+      
         }
 
         private bool RappelExists(int id)

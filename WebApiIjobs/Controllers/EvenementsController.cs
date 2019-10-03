@@ -183,23 +183,38 @@ namespace WebApiIjobs.Controllers
         //Test ok 
         // DELETE: api/Evenements/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Evenement>> DeleteEvenement(int id)
+        public async Task<ActionResult<Boolean>> DeleteEvenement(int id)
         {
-            var evenement = await _context.Evenement.FindAsync(id);
-            if (evenement == null)
+            if (EvenementExists(id))
+            {
+                if (EvenementHaveRappel(id))
+                {
+                    return false;
+                } else
+                {
+                    var evenement = await _context.Evenement.FindAsync(id);
+                    _context.Evenement.Remove(evenement);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
+                    
+
+            }  else
             {
                 return NotFound();
             }
 
-            _context.Evenement.Remove(evenement);
-            await _context.SaveChangesAsync();
-
-            return evenement;
         }
 
         private bool EvenementExists(int id)
         {
             return _context.Evenement.Any(e => e.IdEvenement == id);
+        }
+
+        private bool EvenementHaveRappel(int id)
+        {
+            //  return _context.Evenement.Any(e => e.IdEvenement == id);
+            return _context.Rappel.Any(r => r.IdEvenement == id);
         }
     }
 }

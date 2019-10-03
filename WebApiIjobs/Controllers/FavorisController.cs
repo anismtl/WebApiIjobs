@@ -90,18 +90,38 @@ namespace WebApiIjobs.Controllers
         //Pas reussi Test
         // DELETE: api/Favoris/1/1272242463
         [HttpDelete("{idCandidat}/{idOffre}")]
-        public async Task<ActionResult<Favoris>> DeleteFavoris(int idCandidat, string idOffre)
+        public async Task<ActionResult<Boolean>> DeleteFavoris(int idCandidat, string idOffre)
         {
-            var favoris = await _context.Favoris.FindAsync(idCandidat, idOffre);
+            // var favoris = await _context.Favoris.FindAsync(idCandidat, idOffre);
+
+
+            var favoris = await (from f in _context.Favoris
+                                 where (f.IdCandidat == idCandidat) && (f.IdOffre == idOffre)
+                                 select f).SingleAsync();
+
             if (favoris == null)
             {
                 return NotFound();
+            } else
+            {
+                var evenemets = await (from e in _context.Evenement
+                                       where (e.IdCandidat == idCandidat) && (e.IdOffre == idOffre)
+                                       select e).ToListAsync();
+
+                if (evenemets == null)
+                {
+                    _context.Favoris.Remove(favoris);
+                    await _context.SaveChangesAsync();
+
+                    return true;
+                } else
+                {
+                    return false;
+                }
+
             }
 
-            _context.Favoris.Remove(favoris);
-            await _context.SaveChangesAsync();
-
-            return favoris;
+           
         }
 
         private bool FavorisExists(int idCandidat, string idOffre)
