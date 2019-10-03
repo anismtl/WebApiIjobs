@@ -105,22 +105,30 @@ namespace WebApiIjobs.Controllers
         }
 
 
+        [HttpGet("authentifier/{user}/{pass}", Name = "IsAuthentified")]
+        public async Task<ActionResult<Candidat>> IsAuthentified(string user, string pass)
+        {
 
-        // DELETE: api/Candidats/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Candidat>> DeleteCandidat(int id)
-        //{
-        //    var candidat = await _context.Candidat.FindAsync(id);
-        //    if (candidat == null)
-        //    {
-        //        return NotFound();
-        //    }
+            var result = await (from c in _context.Candidat
+                                where (c.Courriel == user) && (c.MotPasse == pass)
+                                select c).SingleAsync();
+            //select new Candidat()
+            //{
+            //    Id_candidat = c.Id_candidat,
+            //    Nom_candidat = c.Nom_candidat,
+            //    Prenom_candidat=c.Prenom_candidat,
+            //    Courriel=c.Courriel,
+            //    Tel=c.Tel,
+            //    Statut=c.Statut
 
-        //    _context.Candidat.Remove(candidat);
-        //    await _context.SaveChangesAsync();
+            //}).ToList();                     
 
-        //    return candidat;
-        //}
+
+            return new ObjectResult(result);
+
+        }
+
+
 
         private bool CandidatExists(int id)
         {
