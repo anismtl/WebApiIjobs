@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,7 @@ namespace WebApiIjobs.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCorsAttribute("http://localhost:65251", "*", "*")]
     public class OffresController : ControllerBase
     {
         private readonly ijobsContext _context;
