@@ -21,7 +21,6 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste ok
         // GET: api/Favoris
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favoris>>> GetFavoris()
@@ -29,7 +28,7 @@ namespace WebApiIjobs.Controllers
             return await _context.Favoris.ToListAsync();
         }
 
-        //Teste ok
+
         // GET: api/Favoris/1/1272242463
         [HttpGet("{idCandidat}/{idOffre}")]
         public async Task<ActionResult<Favoris>> GetFavoris(int idCandidat, string idOffre)
@@ -44,7 +43,7 @@ namespace WebApiIjobs.Controllers
             return favoris;
         }
 
-        //Teste ok
+
         // PUT: api/Favoris/postuler/1/1272242463
         [HttpPut("postuler/{idCandidat}/{idOffre}")]
         public async Task<ActionResult<Boolean>> PostulerFavoris(int idCandidat, string idOffre)
@@ -62,7 +61,7 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste Ok
+
         // POST: api/Favoris
         [HttpPost]
         public async Task<ActionResult<Favoris>> PostFavoris(Favoris favoris)
@@ -87,7 +86,7 @@ namespace WebApiIjobs.Controllers
             return CreatedAtAction("GetFavoris", new { id = favoris.IdCandidat }, favoris);
         }
 
-        //Pas reussi Test
+ 
         // DELETE: api/Favoris/1/1272242463
         [HttpDelete("{idCandidat}/{idOffre}")]
         public async Task<ActionResult<Boolean>> DeleteFavoris(int idCandidat, string idOffre)

@@ -20,7 +20,7 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
-        //Test ok
+       
         // GET: api/Candidats
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Candidat>>> GetCandidat()
@@ -28,7 +28,7 @@ namespace WebApiIjobs.Controllers
             return await _context.Candidat.ToListAsync();
         }
 
-        //Test ok
+      
         // GET: api/Candidats/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Candidat>> GetCandidat(int id)
@@ -44,7 +44,7 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Test ok
+   
         // PUT: api/Candidats/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCandidat(int id, Candidat candidat)
@@ -75,7 +75,7 @@ namespace WebApiIjobs.Controllers
             return NoContent();
         }
 
-        //Teste ok
+     
         // POST: api/Candidats
         [HttpPost]
         public async Task<ActionResult<Candidat>> CreateCandidat(Candidat candidat)
@@ -87,7 +87,6 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste ok
         // PUT: api/Candidats/disable/5
         [HttpPut("disable/{id}")]
         public async Task<ActionResult<Boolean>> DisableCandidat(int id)
@@ -111,24 +110,46 @@ namespace WebApiIjobs.Controllers
 
             var result = await (from c in _context.Candidat
                                 where (c.Courriel == user) && (c.MotPasse == pass)
-                                select c).SingleAsync();
-            //select new Candidat()
-            //{
-            //    Id_candidat = c.Id_candidat,
-            //    Nom_candidat = c.Nom_candidat,
-            //    Prenom_candidat=c.Prenom_candidat,
-            //    Courriel=c.Courriel,
-            //    Tel=c.Tel,
-            //    Statut=c.Statut
-
-            //}).ToList();                     
-
+                                select c).FirstOrDefaultAsync();
+            if (result == null)
+            {
+                return NotFound();
+            }
 
             return new ObjectResult(result);
 
         }
 
+        [HttpGet("fav/{id}", Name = "GetFavorisById")]
+        public async Task<ActionResult<CandidatFavoris>> GetFavorisById(int id)
+        {
+            var list = await (from c in _context.Candidat
+                              join ord in _context.Favoris on c.IdCandidat equals ord.IdCandidat into c_o
+                              from t in c_o.DefaultIfEmpty()
+                              join off in _context.Offre on t.IdOffre equals off.IdOffre into f_o
+                              from o in f_o.DefaultIfEmpty()
+                              where t.IdCandidat == id
+                              select new CandidatFavoris()
+                              {
+                                  Titre = o.Titre,
+                                  Companie = o.Companie,
+                                  Location = o.Location,
+                                  Date_offre = o.DateOffre.ToString(),
+                                  Descr = o.Descr,
+                                  Url = o.Url,
+                                  Postule = t.Postule,
+                                  Date_favoris = t.DateFavoris.ToShortDateString()
+                              }).
+                       ToListAsync();
 
+            if (list == null)
+            {
+                return NotFound();
+            }
+
+            return new ObjectResult(list);
+            
+        }
 
         private bool CandidatExists(int id)
         {

@@ -21,7 +21,6 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste ok
         // GET: api/Rappels
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Rappel>>> GetRappel()
@@ -30,7 +29,6 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste ok
         // GET: api/Rappels/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Rappel>> GetRappel(int id)
@@ -45,8 +43,7 @@ namespace WebApiIjobs.Controllers
             return rappel;
         }
 
-
-        //Teste ok 
+ 
         // Avec join ou san join faite on a le meme resultat
         // GET: api/Rappels/Evenement/1
         [HttpGet("Evenement/{idEvenement}")]
@@ -73,7 +70,6 @@ namespace WebApiIjobs.Controllers
             return new ObjectResult(rappel);
         }
 
-        //Test ok
         //Il ne affiche pas l'heure pour le rest c bonne
         // GET: api/Rappels/Candidat/1
         [HttpGet("Candidat/{idCandidat}")]
@@ -160,6 +156,42 @@ namespace WebApiIjobs.Controllers
                       
       
         }
+
+
+        [HttpGet("Message/{dateRappel}/{periode}")]
+        public async Task<IEnumerable<Message>> GetMessageByDateHrPeriode(DateTime dateRappel, string periode)
+        {
+            var message = await (from ra in _context.Rappel
+                                 join ev in _context.Evenement on ra.IdEvenement equals ev.IdEvenement into ra_ev
+                                 from raev in ra_ev.DefaultIfEmpty()
+                                 join ca in _context.Candidat on raev.IdCandidat equals ca.IdCandidat into ca_raev
+                                 from caraev in ca_raev.DefaultIfEmpty()
+                                 join co in _context.Contact on raev.IdContact equals co.IdContact into co_raev
+                                 from coraev in co_raev.DefaultIfEmpty()
+                                 where ((ra.DateRappel == dateRappel) &&
+                                        (ra.HeureRappel == periode))
+                                 select new Message()
+                                 {
+                                     TitreEvent = raev.Titre,
+                                     DateEvent = raev.DateEvent,
+                                     HeureEvent = raev.Heure,
+                                     AdresseEvent = raev.Adresse,
+                                     DescrEvent = raev.Descr,
+                                     DateRappel = ra.DateRappel,
+                                     HeureRappel = ra.HeureRappel,
+                                     TelRappel = ra.TelRappel,
+                                     CourrielRappel = ra.CourrielRappel,
+                                     NomCandidat = caraev.NomCandidat,
+                                     PrenomCandidat = caraev.PrenomCandidat,
+                                     NomContact = coraev.NomContact,
+                                     PrenomContact = coraev.PrenomContact
+                                 }).ToListAsync();
+
+     
+                return message;
+           
+        }
+
 
         private bool RappelExists(int id)
         {

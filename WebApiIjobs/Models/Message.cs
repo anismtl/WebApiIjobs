@@ -20,14 +20,9 @@ namespace WebApiIjobs.Models
         //IdCandidat
         public string NomCandidat { get; set; }
         public string PrenomCandidat { get; set; }
-        ////Offre
-        //public string TitreOffre { get; set; }
-        //public string CompanieOffre { get; set; }
         //Contact
         public string NomContact { get; set; }
         public string PrenomContact { get; set; }
-        public string CourrielContact { get; set; }
-        public string Poste { get; set; }
-        public string TelContact { get; set; }
+   
     }
 }

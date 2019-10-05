@@ -21,16 +21,7 @@ namespace WebApiIjobs.Models
         public virtual DbSet<Favoris> Favoris { get; set; }
         public virtual DbSet<Offre> Offre { get; set; }
         public virtual DbSet<Rappel> Rappel { get; set; }
-        //public virtual DbSet<Message> Message { get; set; }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-
-        //    //    optionsBuilder.UseSqlServer("Data Source=aniss.ca;Database=ijobs;User ID=yuni;Password=yuni2019");
-        //    }
-        //}
+  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

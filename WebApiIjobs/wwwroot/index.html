@@ -16,7 +16,8 @@
     3- <a href="/api/candidats/" target="_blank">PostCandidat(Candidat candidat)</a> POST: /candidats/    <br />
     4- <a href="/api/candidats/" target="_blank">UpdateCandidat(int id, Candidat candidat)</a> PUT: /candidats/    <br />
     5- <a href="/api/candidats/disable/1" target="_blank">DisableCandidat(int id)</a> PUT: /candidats/disable/{id}    <br />
-    6- <a href="/api/candidats/authentifier/mail1@mail.ca/passe1" target="_blank">AuthentifierCandidat()</a>
+    6- <a href="/api/candidats/authentifier/mail1@mail.ca/passe1" target="_blank">AuthentifierCandidat()</a>GET: /candidats/authentifier/{Courriel}/{Mot_passe} <br />
+    7- <a href="/api/candidats/fav/2" target="_blank">GetFavorisById(int id)</a> GET: /candidats/fav/{id}
 
     <br /><br />
     <b>Offre:</b>
@@ -55,6 +56,7 @@
     5-<a href="/api/rappels/1" target="_blank">PutRappel(int id, Rappel rappel)</a> PUT: api/rappels/{idRappel}<br />
     6-<a href="/api/rappels/" target="_blank">PostRappel(Rappel rappel)</a> POST: api/rappels/<br />
     7-<a href="/api/rappels/1" target="_blank"> DeleteRappel(int id)</a> DELETE: api/rappels/{idRappel}<br />
+    8-<a href="/api/rappels/message/2019-09-24/10:00" target="_blank"> GetMessageByDateHrPeriode(DateTime dateRappel, string periode)</a> GET: api/rappels/message/{date}/{heure}<br />
 
     <br /><br />
     <b>Contact:</b>
@@ -67,9 +69,6 @@
     6- <a href="/api/contacts/" target="_blank"> DeleteContact(int id)</a> DELETE: /{id}<br />
 
     <br /><br />
-    <b>Message:</b>
-    <br />
-    1-<a href="" target="_blank">PAS IMPLENTÉ GetMessagesByDateHrPeriode(DateTime dateRappel, string hrRappel, int periode)</a> GET: /message/{dateRappel}/{hrRappel}/{periode}<br />
 
     <p><br /></p>
     ©2019

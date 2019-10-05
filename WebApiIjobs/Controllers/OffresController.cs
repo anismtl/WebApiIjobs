@@ -22,7 +22,7 @@ namespace WebApiIjobs.Controllers
             _context = context;
         }
 
-        //Teste ok
+  
         // GET: api/Offres
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Offre>>> GetOffre()
@@ -31,7 +31,7 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        //Teste ok
+       
         // GET: api/Offres/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Offre>> GetOffre(string id)
@@ -44,37 +44,7 @@ namespace WebApiIjobs.Controllers
             }
 
             return offre;
-        }
-
-        //// PUT: api/Offres/5
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutOffre(string id, Offre offre)
-        //{
-        //    if (id != offre.IdOffre)
-        //    {
-        //        return BadRequest();
-        //    }
-
-        //    _context.Entry(offre).State = EntityState.Modified;
-
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!OffreExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return NoContent();
-        //}
+        }   
 
         // POST: api/Offres
 
@@ -101,22 +71,7 @@ namespace WebApiIjobs.Controllers
             return CreatedAtAction("GetOffre", new { id = offre.IdOffre }, offre);
         }
 
-        //// DELETE: api/Offres/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Offre>> DeleteOffre(string id)
-        //{
-        //    var offre = await _context.Offre.FindAsync(id);
-        //    if (offre == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Offre.Remove(offre);
-        //    await _context.SaveChangesAsync();
-
-        //    return offre;
-        //}
-
+ 
         private bool OffreExists(string id)
         {
             return _context.Offre.Any(e => e.IdOffre == id);
