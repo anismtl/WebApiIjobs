@@ -7,19 +7,22 @@ namespace WebApiIjobs.Models
 {
     public class Message
     {//IdEvenement
-        public string TitreEvent { get; set; }
-        public DateTime DateEvent { get; set; }
-        public string HeureEvent { get; set; }
-        public string AdresseEvent { get; set; }
-        public string DescrEvent { get; set; }
+        public string Telephone { get; set; }
+        public string Email { get; set; }
+
+        public string Titre_evenement { get; set; }
+        public DateTime Date_evenement { get; set; }
+        public string Heure_evenement { get; set; }
+        public string Adresse { get; set; }
+        public string Description { get; set; }
         //IdRappel
-        public DateTime DateRappel { get; set; }
-        public string HeureRappel { get; set; }
-        public decimal TelRappel { get; set; }
-        public decimal CourrielRappel { get; set; }
+        public DateTime Date_alarme { get; set; }
+        public string Heure_alarme { get; set; }
+        public decimal Rap_tel { get; set; }
+        public decimal Rap_courriel { get; set; }
         //IdCandidat
-        public string NomCandidat { get; set; }
-        public string PrenomCandidat { get; set; }
+        public string Nom { get; set; }
+        public string Prenom { get; set; }
         //Contact
         public string NomContact { get; set; }
         public string PrenomContact { get; set; }

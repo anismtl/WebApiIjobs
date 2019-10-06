@@ -158,8 +158,8 @@ namespace WebApiIjobs.Controllers
         }
 
 
-        [HttpGet("Message/{dateRappel}/{periode}")]
-        public async Task<IEnumerable<Message>> GetMessageByDateHrPeriode(DateTime dateRappel, string periode)
+        [HttpGet("Message/{dateRappel}/{heure}")]
+        public async Task<IEnumerable<Message>> GetMessageByDateHrPeriode(DateTime dateRappel, string heure)
         {
             var message = await (from ra in _context.Rappel
                                  join ev in _context.Evenement on ra.IdEvenement equals ev.IdEvenement into ra_ev
@@ -169,27 +169,26 @@ namespace WebApiIjobs.Controllers
                                  join co in _context.Contact on raev.IdContact equals co.IdContact into co_raev
                                  from coraev in co_raev.DefaultIfEmpty()
                                  where ((ra.DateRappel == dateRappel) &&
-                                        (ra.HeureRappel == periode))
+                                        (ra.HeureRappel == heure))
                                  select new Message()
                                  {
-                                     TitreEvent = raev.Titre,
-                                     DateEvent = raev.DateEvent,
-                                     HeureEvent = raev.Heure,
-                                     AdresseEvent = raev.Adresse,
-                                     DescrEvent = raev.Descr,
-                                     DateRappel = ra.DateRappel,
-                                     HeureRappel = ra.HeureRappel,
-                                     TelRappel = ra.TelRappel,
-                                     CourrielRappel = ra.CourrielRappel,
-                                     NomCandidat = caraev.NomCandidat,
-                                     PrenomCandidat = caraev.PrenomCandidat,
+                                     Telephone = caraev.Tel,
+                                     Email = caraev.Courriel,
+                                     Titre_evenement = raev.Titre,
+                                     Date_evenement = raev.DateEvent,
+                                     Heure_evenement = raev.Heure,
+                                     Adresse = raev.Adresse,
+                                     Description = raev.Descr,
+                                     Date_alarme = ra.DateRappel,
+                                     Heure_alarme = ra.HeureRappel,
+                                     Rap_tel = ra.TelRappel,
+                                     Rap_courriel = ra.CourrielRappel,
+                                     Nom = caraev.NomCandidat,
+                                     Prenom = caraev.PrenomCandidat,
                                      NomContact = coraev.NomContact,
                                      PrenomContact = coraev.PrenomContact
                                  }).ToListAsync();
-
-     
                 return message;
-           
         }
 
 
